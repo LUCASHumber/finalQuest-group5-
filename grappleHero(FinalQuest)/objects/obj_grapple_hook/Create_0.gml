@@ -3,5 +3,17 @@
 
 hook_x = 0;
 hook_y = 0;
-hook_active = false;
+hook_active = true;
 
+stuck = false;
+pull = false;
+getTarget_Id = noone;
+
+line_length = 0;
+line_length_max = 500;
+
+
+
+direction = obj_player.image_angle;
+image_angle = direction;
+speed = 10;

@@ -1,12 +1,11 @@
 /// @description 
 
-direction = obj_player.facing_direction;
-direction = direction;
-image_angle = obj_player.facing_direction;
-speed = 15;
-image_angle = direction;
-
-
+if(distance_to_object(obj_player) >= line_length_max){
+	direction = point_direction(x,y,obj_player.x,obj_player.y)
+	image_angle = direction
+	speed *= -2;
+	
+}
 
 
 

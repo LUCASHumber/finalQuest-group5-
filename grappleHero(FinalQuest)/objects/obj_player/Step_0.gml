@@ -1,7 +1,5 @@
 /// @description player controls
 
-//penis
-
 //player movement 
 if(in_control_of_player)
 {
@@ -11,7 +9,7 @@ if(in_control_of_player)
 	jump = keyboard_check_pressed(vk_space);
 	up_look = keyboard_check(ord("W")) || keyboard_check(vk_up);
 	down_look = keyboard_check(ord("S")) || keyboard_check(vk_down);
-	shoot_grapple = keyboard_check(ord("G"));
+	shoot_grapple = keyboard_check_pressed(ord("G"));
 	
 	movement = right_movement - left_movement;
 	
@@ -19,7 +17,7 @@ if(in_control_of_player)
 	
 	vertical_speed = vertical_speed + player_mass;
 	
-	facing_direction = image_angle;
+	//facing_direction = image_angle;
 	
 }
 
@@ -27,21 +25,25 @@ if(in_control_of_player)
 if(left_movement)
 {
 	image_angle = 180;
+	facing_direction = -1;
 	
 }
 else if(up_look)
 {
 	image_angle = 90;
+	vertical_direction = -1;
 } 
 else if (right_movement)
 {
 	image_angle = 0;
+	facing_direction = 1;
 
 }
 
 else if (down_look)
 {
 	image_angle = 270;
+	vertical_direction = 1;
 }
 
 
@@ -104,10 +106,24 @@ if(grounded)
 	previous_grounded_y = y;
 }
 
-
-if((shoot_grapple) && (grapple_shots != 0)) 
+show_debug_message($"can grapple: {can_grapple}")
+show_debug_message($"is grapple: {is_grappled}")
+show_debug_message($"is shooting: {is_shooting}")
+if( (shoot_grapple) and can_grapple == true and is_shooting == false) 
 {
-	grappleHook = instance_create_layer(x,y,layer, obj_grapple_hook);
-	grapple_shots -=1
 	
-} 
+	
+	instance_create_layer(x+50*facing_direction,y + 50 * vertical_direction,layer, obj_grapple_hook);
+	
+	can_grapple = false;
+	is_grappling = true;
+	
+} else if((shoot_grapple) and is_shooting){
+	obj_grapple_hook.direction =  point_direction(x,y,obj_grapple_hook.x,obj_grapple_hook.y)
+	obj_grapple_hook.image_angle = obj_grapple_hook.direction
+	obj_grapple_hook.speed *= -2;
+	obj_grapple_hook.hook_active = false;
+}
+
+
+
