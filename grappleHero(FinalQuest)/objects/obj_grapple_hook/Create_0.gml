@@ -10,7 +10,7 @@ pull = false;
 getTarget_Id = noone;
 
 line_length = 0;
-line_length_max = 500;
+line_length_max = 250;
 
 
 

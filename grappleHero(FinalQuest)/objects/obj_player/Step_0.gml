@@ -17,7 +17,7 @@ if(in_control_of_player)
 	
 	vertical_speed = vertical_speed + player_mass;
 	
-	//facing_direction = image_angle;
+	
 	
 }
 
@@ -26,7 +26,6 @@ if(left_movement)
 {
 	image_angle = 180;
 	facing_direction = -1;
-	
 }
 else if(up_look)
 {
@@ -37,7 +36,6 @@ else if (right_movement)
 {
 	image_angle = 0;
 	facing_direction = 1;
-
 }
 
 else if (down_look)
@@ -106,17 +104,18 @@ if(grounded)
 	previous_grounded_y = y;
 }
 
+
+//shoot grapple 
 show_debug_message($"can grapple: {can_grapple}")
 show_debug_message($"is grapple: {is_grappled}")
 show_debug_message($"is shooting: {is_shooting}")
-if( (shoot_grapple) and can_grapple == true and is_shooting == false) 
+if( shoot_grapple and can_grapple = true and is_shooting = false) 
 {
 	
-	
-	instance_create_layer(x+50*facing_direction,y + 50 * vertical_direction,layer, obj_grapple_hook);
-	
 	can_grapple = false;
-	is_grappling = true;
+	is_shooting = true;
+	instance_create_layer(x + 50 * facing_direction, y + 50 * vertical_direction, layer, obj_grapple_hook);
+
 	
 } else if((shoot_grapple) and is_shooting){
 	obj_grapple_hook.direction =  point_direction(x,y,obj_grapple_hook.x,obj_grapple_hook.y)
