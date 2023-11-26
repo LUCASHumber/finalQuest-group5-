@@ -11,56 +11,8 @@ if(in_control_of_player)
 	down_look = keyboard_check(ord("S")) || keyboard_check(vk_down);
 	shoot_grapple = keyboard_check_pressed(ord("G"));
 	
-	movement = right_movement - left_movement;
-	
-	horizontal_speed = movement * move_speed;
-	
-	vertical_speed = vertical_speed + player_mass;
-	
-	
-	
-}
 
-//check direction player is facing
-if(left_movement)
-{
-	image_angle = 180;
-	facing_direction = -1;
 }
-else if(up_look)
-{
-	image_angle = 90;
-	vertical_direction = -1;
-} 
-else if (right_movement)
-{
-	image_angle = 0;
-	facing_direction = 1;
-}
-
-else if (down_look)
-{
-	image_angle = 270;
-	vertical_direction = 1;
-}
-
-
-//player jump and jump buffer
-if(jump)
-{
-	jump_counter = 0;
-}
-if(jump_counter < jump_buffer)
-{
-	jump_counter++;
-	if(jump_counter <= jump_buffer && grounded)
-	{
-		vertical_speed -= jump_speed;
-		jump_counter = 0;
-	}
-}
-
-
 
 //plyaer collison:
 
@@ -104,25 +56,86 @@ if(grounded)
 	previous_grounded_y = y;
 }
 
+switch(state)
+{
+	case player_state.normal:
+	{
+		movement = right_movement - left_movement;
+		horizontal_speed = movement * move_speed;
+		vertical_speed = vertical_speed + player_mass;
+		
+		
+		//check direction player is facing
+		if(left_movement)
+		{
+			image_angle = 180;
+			facing_direction = -1;
+		}
+		else if(up_look)
+		{
+			image_angle = 90;
+			vertical_direction = -1;
+		} 
+		else if (right_movement)
+		{
+			image_angle = 0;
+			facing_direction = 1;
+		}
+
+		else if (down_look)
+		{
+			image_angle = 270;
+			vertical_direction = 1;
+		}
+
+
+		//player jump and jump buffer
+		if(jump)
+		{
+			jump_counter = 0;
+		}
+		if(jump_counter < jump_buffer)
+		{
+			jump_counter++;
+			if(jump_counter <= jump_buffer && grounded)
+			{
+				vertical_speed -= jump_speed;
+				jump_counter = 0;
+			}
+		}
+		
+		if( shoot_grapple and can_grapple = true and is_shooting = false) 
+		{
+			can_grapple = false;
+			is_shooting = true;
+			instance_create_layer(x, y, layer, obj_grapple_hook);
+
+	
+		} else if((shoot_grapple) and is_shooting){
+			obj_grapple_hook.direction =  point_direction(x,y,obj_grapple_hook.x,obj_grapple_hook.y)
+			obj_grapple_hook.image_angle = obj_grapple_hook.direction
+			obj_grapple_hook.speed *= -2;
+			obj_grapple_hook.hook_active = false;
+		}
+
+
+	}break;
+	
+	case player_state.grapple:
+	{
+
+		if(is_grappled)
+		{
+			
+			
+		}
+	}break;
+}
+
 
 //shoot grapple 
 show_debug_message($"can grapple: {can_grapple}")
 show_debug_message($"is grapple: {is_grappled}")
 show_debug_message($"is shooting: {is_shooting}")
-if( shoot_grapple and can_grapple = true and is_shooting = false) 
-{
-	
-	can_grapple = false;
-	is_shooting = true;
-	instance_create_layer(x + 50 * facing_direction, y + 50 * vertical_direction, layer, obj_grapple_hook);
-
-	
-} else if((shoot_grapple) and is_shooting){
-	obj_grapple_hook.direction =  point_direction(x,y,obj_grapple_hook.x,obj_grapple_hook.y)
-	obj_grapple_hook.image_angle = obj_grapple_hook.direction
-	obj_grapple_hook.speed *= -2;
-	obj_grapple_hook.hook_active = false;
-}
-
 
 

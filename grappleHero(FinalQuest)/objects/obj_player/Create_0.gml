@@ -32,3 +32,15 @@ jumped = false;
 jump_buffer = 5;
 jump_counter = 0;
 
+state = player_state.normal;
+enum player_state
+{
+
+normal, 
+grapple
+
+}
+
+
+
+
