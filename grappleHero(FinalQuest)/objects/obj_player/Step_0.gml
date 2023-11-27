@@ -24,6 +24,7 @@ if(place_meeting(x+horizontal_speed, y, obj_platform))
 		x += sign(horizontal_speed);
 	}
 	horizontal_speed = 0;
+	
 }
 x += horizontal_speed;
 
@@ -35,6 +36,7 @@ if(place_meeting(x, y+vertical_speed, obj_platform))
 		y += sign(vertical_speed);
 	}
 	vertical_speed = 0;
+	
 }
 y += vertical_speed;
 
@@ -56,10 +58,12 @@ if(grounded)
 	previous_grounded_y = y;
 }
 
+//switch between normal player movment state and grapple state
 switch(state)
 {
 	case player_state.normal:
 	{
+		//movement, horizontal and vertical speed
 		movement = right_movement - left_movement;
 		horizontal_speed = movement * move_speed;
 		vertical_speed = vertical_speed + player_mass;
@@ -104,38 +108,76 @@ switch(state)
 			}
 		}
 		
-		if( shoot_grapple and can_grapple = true and is_shooting = false) 
+		//shoot grapple 
+//show_debug_message($"can grapple: {can_grapple}")
+//show_debug_message($"is grapple: {is_grappled}")
+//show_debug_message($"is shooting: {is_shooting}")
+
+		if((shoot_grapple) and can_grapple and !is_shooting) 
 		{
 			can_grapple = false;
 			is_shooting = true;
-			instance_create_layer(x, y, layer, obj_grapple_hook);
-
+			var grapple_instance = instance_create_layer(x, y, layer, obj_grapple_hook);
+			
 	
-		} else if((shoot_grapple) and is_shooting){
+		} else if(shoot_grapple and is_shooting){
 			obj_grapple_hook.direction =  point_direction(x,y,obj_grapple_hook.x,obj_grapple_hook.y)
 			obj_grapple_hook.image_angle = obj_grapple_hook.direction
 			obj_grapple_hook.speed *= -2;
-			obj_grapple_hook.hook_active = false;
+			
 		}
-
-
+		
+		
+		if(is_grappled){
+			state = player_state.grapple
+		}
+		
+		
 	}break;
 	
 	case player_state.grapple:
-	{
-
-		if(is_grappled)
+	{	
+		
+		grappleX = obj_grapple_hook.hook_x;
+		grappleY = obj_grapple_hook.hook_y;
+		ropeX = x;
+		ropeY = y;
+		grapple_angle_vel = 0;
+		grapple_angle = point_direction(grappleX, grappleY, x, y );
+		grapple_length = min(point_distance( grappleX, grappleY, x, y), obj_grapple_hook.line_length_max);
+			
+		
+		
+		var grapple_angle_acc = -0.2 * dcos(grapple_angle);
+        grapple_angle_acc += (right_movement - left_movement) * 0.8;
+        grapple_length += (down_look - up_look) * 2;
+		grapple_length = min(grapple_length,obj_grapple_hook.line_length_max);
+        
+        grapple_angle_vel += grapple_angle_acc;
+        grapple_angle += grapple_angle_vel;
+        
+        ropeX = grappleX + lengthdir_x(grapple_length, grapple_angle);
+        ropeY = grappleY + lengthdir_y(grapple_length, grapple_angle);
+        
+        horizontal_speed = ropeX - x;
+        vertical_speed = ropeY - y;
+		
+		
+		
+		if(shoot_grapple)
 		{
 			
+			state = player_state.normal;
+			vertical_speed -= jump_speed;
+			can_grapple = true;
+			is_shooting = false;
+			is_grappled = false;
 			
 		}
+		
 	}break;
 }
 
 
-//shoot grapple 
-show_debug_message($"can grapple: {can_grapple}")
-show_debug_message($"is grapple: {is_grappled}")
-show_debug_message($"is shooting: {is_shooting}")
 
 

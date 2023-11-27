@@ -21,8 +21,7 @@ grapple_speed = 15;
 can_grapple = true;
 is_shooting = false;
 is_grappled = false;
-saveId = noone;
-
+ropeInstance = noone;
 
 previous_grounded_x = 0;
 previous_grounded_y = 0;
@@ -31,6 +30,7 @@ grounded = false;
 jumped = false;
 jump_buffer = 5;
 jump_counter = 0;
+isAir = false;
 
 state = player_state.normal;
 enum player_state
