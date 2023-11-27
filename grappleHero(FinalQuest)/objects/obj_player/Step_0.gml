@@ -138,6 +138,7 @@ switch(state)
 	case player_state.grapple:
 	{	
 		
+		
 		grappleX = obj_grapple_hook.hook_x;
 		grappleY = obj_grapple_hook.hook_y;
 		ropeX = x;
@@ -149,12 +150,13 @@ switch(state)
 		
 		
 		var grapple_angle_acc = -0.2 * dcos(grapple_angle);
-        grapple_angle_acc += (right_movement - left_movement) * 0.8;
+        grapple_angle_acc += (right_movement - left_movement) * 3;
         grapple_length += (down_look - up_look) * 2;
 		grapple_length = min(grapple_length,obj_grapple_hook.line_length_max);
         
         grapple_angle_vel += grapple_angle_acc;
         grapple_angle += grapple_angle_vel;
+		grapple_angle_vel *= 0.99;
         
         ropeX = grappleX + lengthdir_x(grapple_length, grapple_angle);
         ropeY = grappleY + lengthdir_y(grapple_length, grapple_angle);
