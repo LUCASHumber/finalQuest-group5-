@@ -63,6 +63,8 @@ switch(state)
 {
 	case player_state.normal:
 	{
+		
+		show_debug_message("in normal state")
 		//movement, horizontal and vertical speed
 		movement = right_movement - left_movement;
 		horizontal_speed = movement * move_speed;
@@ -113,22 +115,23 @@ switch(state)
 //show_debug_message($"is grapple: {is_grappled}")
 //show_debug_message($"is shooting: {is_shooting}")
 
-		if((shoot_grapple) and can_grapple and !is_shooting) 
+		if((shoot_grapple) and can_grapple = 1 and !is_shooting) 
 		{
-			can_grapple = false;
+			can_grapple =0;
 			is_shooting = true;
 			var grapple_instance = instance_create_layer(x, y, layer, obj_grapple_hook);
 			
 	
 		} else if(shoot_grapple and is_shooting){
-			obj_grapple_hook.direction =  point_direction(x,y,obj_grapple_hook.x,obj_grapple_hook.y)
-			obj_grapple_hook.image_angle = obj_grapple_hook.direction
-			obj_grapple_hook.speed *= -2;
+			//obj_grapple_hook.direction =  point_direction(x,y,obj_grapple_hook.x,obj_grapple_hook.y)
+			//obj_grapple_hook.image_angle = obj_grapple_hook.direction
+			//obj_grapple_hook.speed *= -2;
 			
 		}
 		
 		
 		if(is_grappled){
+			show_debug_message("state switched to grapple")
 			state = player_state.grapple
 		}
 		
@@ -138,7 +141,7 @@ switch(state)
 	case player_state.grapple:
 	{	
 		
-		
+		show_debug_message("in grapple state");
 		grappleX = obj_grapple_hook.hook_x;
 		grappleY = obj_grapple_hook.hook_y;
 		ropeX = x;
@@ -168,15 +171,32 @@ switch(state)
 		
 		if(shoot_grapple)
 		{
-			
-			state = player_state.normal;
+			show_debug_message($"{shoot_grapple}");
 			vertical_speed -= jump_speed;
-			can_grapple = true;
+			can_grapple = 1;
 			is_shooting = false;
 			is_grappled = false;
+			state = player_state.returning;
+			show_debug_message("going to returning state");
 			
 		}
 		
+	}break;
+	
+	case player_state.returning:
+	{
+		show_debug_message($"in returning state");
+		//obj_grapple_hook.direction =  point_direction(x,y,obj_grapple_hook.x,obj_grapple_hook.y)
+		//obj_grapple_hook.image_angle = obj_grapple_hook.direction
+		//obj_grapple_hook.speed *= -3;
+		//is_grappled = false;
+		
+		movement = right_movement - left_movement;
+		horizontal_speed = movement * move_speed;
+		vertical_speed = vertical_speed + player_mass;
+		
+		
+	
 	}break;
 }
 

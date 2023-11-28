@@ -18,7 +18,7 @@ move_speed = 10;
 jump_speed = 10;
 
 grapple_speed = 15;
-can_grapple = true;
+can_grapple = 1;
 is_shooting = false;
 is_grappled = false;
 ropeInstance = noone;
@@ -37,7 +37,8 @@ enum player_state
 {
 
 normal, 
-grapple
+grapple,
+returning
 
 }
 
