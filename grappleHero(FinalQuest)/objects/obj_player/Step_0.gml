@@ -117,7 +117,7 @@ switch(state)
 
 		if((shoot_grapple) and can_grapple = 1 and !is_shooting) 
 		{
-			can_grapple =0;
+			can_grapple = 0;
 			is_shooting = true;
 			var grapple_instance = instance_create_layer(x, y, layer, obj_grapple_hook);
 			
@@ -152,7 +152,7 @@ switch(state)
 			
 		
 		
-		var grapple_angle_acc = -0.2 * dcos(grapple_angle);
+		var grapple_angle_acc = -0.97 * dcos(grapple_angle);
         grapple_angle_acc += (right_movement - left_movement) * 3;
         grapple_length += (down_look - up_look) * 2;
 		grapple_length = min(grapple_length,obj_grapple_hook.line_length_max);

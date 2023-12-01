@@ -30,7 +30,7 @@ grounded = false;
 jumped = false;
 jump_buffer = 5;
 jump_counter = 0;
-isAir = false;
+inAir = false;
 
 state = player_state.normal;
 enum player_state
