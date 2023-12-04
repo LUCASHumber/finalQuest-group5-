@@ -69,7 +69,8 @@ switch(state)
 		movement = right_movement - left_movement;
 		horizontal_speed = movement * move_speed;
 		vertical_speed = vertical_speed + player_mass;
-		
+		show_debug_message($"{movement}");
+		show_debug_message($"{horizontal_speed}");
 		
 		//check direction player is facing
 		if(left_movement)
