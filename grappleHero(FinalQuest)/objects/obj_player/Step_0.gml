@@ -187,10 +187,6 @@ switch(state)
 	case player_state.returning:
 	{
 		show_debug_message($"in returning state");
-		//obj_grapple_hook.direction =  point_direction(x,y,obj_grapple_hook.x,obj_grapple_hook.y)
-		//obj_grapple_hook.image_angle = obj_grapple_hook.direction
-		//obj_grapple_hook.speed *= -3;
-		//is_grappled = false;
 		
 		movement = right_movement - left_movement;
 		horizontal_speed = movement * move_speed;
