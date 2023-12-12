@@ -17,9 +17,9 @@ if(in_control_of_player)
 //plyaer collison:
 
 //horizontal collison
-if(place_meeting(x+horizontal_speed, y, obj_platform))
+if(place_meeting(x+horizontal_speed, y, obj_ground))
 {
-	while(!place_meeting(x+sign(horizontal_speed), y , obj_platform))
+	while(!place_meeting(x+sign(horizontal_speed), y , obj_ground))
 	{
 		x += sign(horizontal_speed);
 	}
@@ -29,9 +29,9 @@ if(place_meeting(x+horizontal_speed, y, obj_platform))
 x += horizontal_speed;
 
 //vertical collison
-if(place_meeting(x, y+vertical_speed, obj_platform))
+if(place_meeting(x, y+vertical_speed, obj_ground))
 {
-	while(!place_meeting(x, y+sign(vertical_speed), obj_platform))
+	while(!place_meeting(x, y+sign(vertical_speed), obj_ground))
 	{
 		y += sign(vertical_speed);
 	}
@@ -43,7 +43,7 @@ y += vertical_speed;
 
 
 //check if player is on the ground
-if(place_meeting(x, y+1, obj_platform))
+if(place_meeting(x, y+1, obj_ground))
 {
 	grounded = true;
 }

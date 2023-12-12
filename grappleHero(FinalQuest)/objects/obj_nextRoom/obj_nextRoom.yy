@@ -1,18 +1,17 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_red_platform",
-  "eventList": [],
+  "name": "obj_nextRoom",
+  "eventList": [
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"eventNum":0,"eventType":4,"isDnD":false,},
+  ],
   "managed": true,
   "overriddenProperties": [],
   "parent": {
     "name": "Objects",
     "path": "folders/Objects.yy",
   },
-  "parentObjectId": {
-    "name": "obj_ground",
-    "path": "objects/obj_ground/obj_ground.yy",
-  },
+  "parentObjectId": null,
   "persistent": false,
   "physicsAngularDamping": 0.1,
   "physicsDensity": 0.5,
@@ -29,8 +28,8 @@
   "properties": [],
   "solid": true,
   "spriteId": {
-    "name": "spr_red_platform",
-    "path": "sprites/spr_red_platform/spr_red_platform.yy",
+    "name": "spr_white_platform",
+    "path": "sprites/spr_white_platform/spr_white_platform.yy",
   },
   "spriteMaskId": null,
   "visible": true,
