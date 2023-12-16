@@ -14,6 +14,7 @@ if(obj_player.state == player_state.returning)
 	image_angle = direction
 	speed = 30;
 	show_debug_message($"trying to return to player with speed {speed}");
+	d_counter = 1;
 }
 
 

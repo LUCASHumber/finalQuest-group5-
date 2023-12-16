@@ -1,6 +1,7 @@
 /// @description variables
 
 in_control_of_player = true;
+hits = 3;
 
 horizontal_speed = 0;
 vertical_speed = 0;

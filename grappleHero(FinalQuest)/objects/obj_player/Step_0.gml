@@ -11,7 +11,7 @@ if(in_control_of_player)
 	down_look = keyboard_check(ord("S")) || keyboard_check(vk_down);
 	shoot_grapple = keyboard_check_pressed(ord("G"));
 	
-
+	restart = keyboard_check_pressed(ord("R"));
 }
 
 //plyaer collison:
@@ -106,6 +106,7 @@ switch(state)
 			jump_counter++;
 			if(jump_counter <= jump_buffer && grounded)
 			{
+				audio_play_sound(snd_jump,0,0);	
 				vertical_speed -= jump_speed;
 				jump_counter = 0;
 			}
@@ -134,6 +135,11 @@ switch(state)
 		if(is_grappled){
 			show_debug_message("state switched to grapple")
 			state = player_state.grapple
+		}
+		
+		if(restart){
+			game_restart();
+			in_control_of_player = true;
 		}
 		
 		
@@ -196,6 +202,7 @@ switch(state)
 	
 	}break;
 }
+
 
 
 

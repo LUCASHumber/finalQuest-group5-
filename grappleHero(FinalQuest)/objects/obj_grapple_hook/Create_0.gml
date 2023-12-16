@@ -8,6 +8,7 @@ getTarget_Id = noone;
 
 line_length = 0;
 line_length_max = 250;
+d_counter = 0;
 
 if(obj_player.grounded = false){
 	if(obj_player.image_angle = 0){
